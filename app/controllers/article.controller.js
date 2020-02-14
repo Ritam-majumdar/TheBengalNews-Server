@@ -91,6 +91,17 @@ exports.findByMenu = (req, res) =>{
     });
 };
 
+//Find Flash News Articles 
+exports.flashNews = (req, res) =>{
+    Article.find({'flashNews': true}).then(flashnews => {
+        res.send(flashnews);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving articles."
+        });
+    });
+};
+
 //Find article by title
 exports.findByTitle = (req, res) =>{
     Article.find({'title': req.params.title}).then(article => {

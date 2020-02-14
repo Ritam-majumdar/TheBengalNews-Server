@@ -14,6 +14,11 @@ module.exports = (app) => {
     // Retrieve all Articles with Main & DD Menu
     app.get('/articlesMenu/:mMenu/:ddMenu', articles.findByMenu);
 
+    // Retrieve all Flash News Articles 
+    app.get('/articlesFlash', articles.flashNews);
+
+    // Retrieve a Article with Title
+
     app.get('/article/:title',articles.findByTitle);
 
     // Update a Article with articleId
