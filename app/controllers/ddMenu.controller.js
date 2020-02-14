@@ -12,6 +12,7 @@ exports.create = (req, res) => {
     // Create a DdMenu
     const ddMenu = new DdMenu({
         title: req.body.title,
+        titleEnglish: req.body.titleEnglish,
         position: req.body.position,
         mainMenu: req.body.mainMenu
     });
@@ -32,7 +33,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     DdMenu.find()
     .then(ddMenus => {
-        res.send(ddMenus);
+        res.send(ddMenus.sort((a, b) => b.position - a.position));
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving ddMenus."
@@ -76,6 +77,7 @@ exports.update = (req, res) => {
     // Find ddMenu and update it with the request body
     DdMenu.findByIdAndUpdate(req.params.ddMenuId, {
         title: req.body.title,
+        titleEnglish: req.body.titleEnglish,
         position: req.body.position,
         mainMenu: req.body.mainMenu
     }, {new: true})

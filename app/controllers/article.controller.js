@@ -15,13 +15,21 @@ exports.create = (req, res) => {
     // Create a Article
     const article = new Article({
         title: req.body.title || "Untitled Article",
-        author: req.body.author,
+        titleEnglish: req.body.titleEnglish,
+        author: req.body.author || "The Bengal News",
         place: req.body.place,
         mMenu: req.body.mMenu,
         ddMenu: req.body.ddMenu,
         youtubeLink: req.body.youtubeLink,
         content: req.body.content,
-        articleImage: req.body.articleImage
+        articleImage: req.body.articleImage,
+        imageCaption: req.body.imageCaption,
+        topNews: req.body.topNews,
+        topNewsDdMenu: req.body.topNewsDdMenu,
+        flashNews: req.body.flashNews,
+        keywords: req.body.keywords,
+        dateBengali: req.body.dateBengali,
+        views: req.body.views
     });
 
     // Save Article in the database
@@ -72,6 +80,28 @@ exports.findOne = (req, res) => {
 
 };
 
+//Find articles for given menu
+exports.findByMenu = (req, res) =>{
+    Article.find({'mMenu': req.params.mMenu, 'ddMenu': req.params.ddMenu}).then(articlesMenu => {
+        res.send(articlesMenu);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving articles."
+        });
+    });
+};
+
+//Find article by title
+exports.findByTitle = (req, res) =>{
+    Article.find({'title': req.params.title}).then(article => {
+        res.send(article);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving article."
+        });
+    });
+};
+
 // Update a article identified by the articleId in the request
 exports.update = (req, res) => {
     // Validate Request
@@ -84,13 +114,21 @@ exports.update = (req, res) => {
     // Find article and update it with the request body
     Article.findByIdAndUpdate(req.params.articleId, {
         title: req.body.title || "Untitled Article",
-        author: req.body.author,
+        titleEnglish: req.body.titleEnglish,
+        author: req.body.author || "The Bengal News",
         place: req.body.place,
         mMenu: req.body.mMenu,
         ddMenu: req.body.ddMenu,
         youtubeLink: req.body.youtubeLink,
         content: req.body.content,
-        articleImage: req.body.articleImage
+        articleImage: req.body.articleImage,
+        imageCaption: req.body.imageCaption,
+        topNews: req.body.topNews,
+        topNewsDdMenu: req.body.topNewsDdMenu,
+        flashNews: req.body.flashNews,
+        keywords: req.body.keywords,
+        dateBengali: req.body.dateBengali,
+        views: req.body.views
     }, { new: true })
         .then(article => {
             if (!article) {

@@ -12,6 +12,7 @@ exports.create = (req, res) => {
     // Create a MainMenu
     const mainMenu = new MainMenu({
         title: req.body.title,
+        titleEnglish: req.body.titleEnglish,
         position: req.body.position
     });
 
@@ -31,7 +32,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     MainMenu.find()
     .then(mainMenus => {
-        res.send(mainMenus);
+        res.send(mainMenus.sort((a, b) => a.position - b.position));
     }).catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving mainMenus."
@@ -75,7 +76,8 @@ exports.update = (req, res) => {
     // Find mainMenu and update it with the request body
     MainMenu.findByIdAndUpdate(req.params.mainMenuId, {
         title: req.body.title,
-        position: req.body.position
+        titleEnglish: req.body.titleEnglish,
+        position: req.body.position,
     }, {new: true})
     .then(mainMenu => {
         if(!mainMenu) {

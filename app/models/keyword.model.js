@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const KeywordSchema = mongoose.Schema({
-    title: String
+    title: String,
+    titleEnglish: String
 }, {
     timestamps: true
 });

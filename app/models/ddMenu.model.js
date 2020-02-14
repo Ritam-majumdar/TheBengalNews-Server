@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const DdMenuSchema = mongoose.Schema({
     title: String,
+    titleEnglish: String,
     position: Number,
     mainMenu: String
 }, {
