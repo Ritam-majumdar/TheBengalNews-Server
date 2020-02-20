@@ -56,6 +56,9 @@ require('./app/routes/image-upload.routes')(app);
 // Require User routes
 require('./app/routes/user.routes')(app);
 
+// Require SocialMedia routes
+require('./app/routes/socialMedia.routes')(app);
+
 // listen for requests
 app.listen(3000, () => {
     console.log("Server is listening on port 3000");
